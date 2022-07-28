@@ -2,9 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const passport = require("passport");
 const db = require("./database/db");
 const router = require("./routes/router");
 const NotFoundError = require("./errors/notFoundError");
+const userLocalStrategy = require("./authentication/localStrategy");
+const userJwtStrategy = require("./authentication/jwtStartegy");
 
 const app = express();
 const port = process.env.PORT;
@@ -17,6 +20,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: true }));
+
+// User
+passport.use("login", userLocalStrategy());
+passport.use("jwt", userJwtStrategy());
 
 // Routes
 app.use("/api", router);

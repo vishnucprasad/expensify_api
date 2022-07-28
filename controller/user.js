@@ -1,3 +1,5 @@
+const passport = require("passport");
+const signJwt = require("../authentication/jwt");
 const ConflictError = require("../errors/conflictError");
 const User = require("../models/user");
 
@@ -19,3 +21,28 @@ exports.register = async (req, res, next) => {
         return next(e);
     }
 }
+
+exports.login = (req, res, next) => {
+    // User authentication
+    passport.authenticate('login', (e, user) => {
+        try {
+            if (e) return next(e);
+
+            // Creating new authentication token
+            signJwt(req, user, (e, token, options) => {
+                if (e) return next(e);
+
+                // Sending user data as response and setting authentication token to cookies
+                res
+                    .cookie(process.env.COOKIE_KEY, token, options)
+                    .status(200)
+                    .json(user);
+            });
+        } catch (e) {
+            // Passing error to error handler
+            return next(e);
+        }
+    })(req, res, next);
+}
+
+exports.getAuth = (req, res) => res.status(200).json(req.user);
