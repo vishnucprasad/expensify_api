@@ -46,3 +46,8 @@ exports.login = (req, res, next) => {
 }
 
 exports.getAuth = (req, res) => res.status(200).json(req.user);
+
+exports.logout = (req, res) => res
+    .status(200)
+    .clearCookie(process.env.COOKIE_KEY)
+    .json({ logout: true });
