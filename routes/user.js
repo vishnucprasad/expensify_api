@@ -7,4 +7,10 @@ const userController = require("../controller/user");
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 
+// Authentication Middleware
+router.use(passport.authenticate('jwt', { session: false }));
+
+// Private Routes
+router.get('/auth', userController.getAuth);
+
 module.exports = router;
