@@ -4,11 +4,12 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const db = require("./database/db");
 const router = require("./routes/router");
+const NotFoundError = require("./errors/notFoundError");
 
 const app = express();
 const port = process.env.PORT;
 
-// Database Connection
+// Database connection
 db.connect();
 
 // Middlewares
@@ -17,10 +18,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: true }));
 
-// Routers
+// Routes
 app.use("/api", router);
 
-// Error Handlers
+// Unmatched routes handler
+app.all('*', (req, res, next) => {
+    next(new NotFoundError());
+});
+
+// Error handler
 app.use((error, req, res, next) => {
     res.status(error.status || 500).json(error);
 });
