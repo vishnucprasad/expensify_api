@@ -8,6 +8,7 @@ router.use(authenticateUser);
 
 // Private Routes
 router.post('/add', transactionController.addTransaction);
-router.post('/edit/:transactionId', transactionController.editTransaction);
+router.patch('/edit/:transactionId', transactionController.editTransaction);
+router.delete('/delete/:transactionId', transactionController.deleteTransaction);
 
 module.exports = router;

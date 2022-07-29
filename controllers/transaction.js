@@ -35,3 +35,18 @@ exports.editTransaction = async (req, res, next) => {
         return next(e);
     }
 }
+
+exports.deleteTransaction = async (req, res, next) => {
+    try {
+        // Deleteing transaction using userId and transactionId
+        const transaction = await Transaction.findOneAndDelete({
+            _id: objectId(req.params.transactionId),
+            user: objectId(req.user._id)
+        });
+
+        // Sending the deleted transaction as response
+        res.status(200).json(transaction);
+    } catch (e) {
+        return next(e);
+    }
+}
