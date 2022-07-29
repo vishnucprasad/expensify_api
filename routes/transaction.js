@@ -10,5 +10,6 @@ router.use(authenticateUser);
 router.post('/add', transactionController.addTransaction);
 router.patch('/edit/:transactionId', transactionController.editTransaction);
 router.delete('/delete/:transactionId', transactionController.deleteTransaction);
+router.get('/all', transactionController.getAllTransactions);
 
 module.exports = router;

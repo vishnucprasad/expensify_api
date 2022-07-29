@@ -50,3 +50,17 @@ exports.deleteTransaction = async (req, res, next) => {
         return next(e);
     }
 }
+
+exports.getAllTransactions = async (req, res, next) => {
+    try {
+        // Finding all transactions of the current user with userId
+        const transactions = await Transaction.find({
+            user: objectId(req.user._id),
+        });
+
+        // Sending transactions as response
+        res.status(200).json(transactions);
+    } catch (e) {
+        return next(e);
+    }
+}
