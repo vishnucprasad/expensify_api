@@ -7,13 +7,7 @@ const signJwt = (req, user, done) => {
         // Signing new jwt
         const token = jwt.sign({ user }, process.env.JWT_SECRET);
 
-        // Cookie options
-        const options = {
-            expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-            httpOnly: true,
-        }
-
-        return done(null, token, options);
+        return done(null, token);
     });
 }
 

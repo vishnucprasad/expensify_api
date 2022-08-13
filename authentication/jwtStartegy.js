@@ -6,8 +6,8 @@ const userJwtStrategy = () => new JWTstrategy(
         jwtFromRequest: (req) => {
             let token = null;
 
-            // Geting authentication Token from cookies
-            if (req && req.cookies) token = req.cookies[process.env.COOKIE_KEY];
+            // Geting authentication Token from request headers
+            if (req && req.headers) token = req.headers.authorization.split(" ")[1];
             return token;
         },
     },
