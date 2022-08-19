@@ -1,66 +1,33 @@
-const objectId = require("mongoose").Types.ObjectId;
-const Transaction = require('../models/transaction');
+const transactionServices = require("../services/transaction");
 
 exports.addTransaction = async (req, res, next) => {
-    try {
-        // Creating new transaction
-        const transaction = await Transaction.create({
-            user: req.user._id,
-            ...req.body
-        });
+    // Creating new transaction
+    const transaction = await transactionServices.createTransaction(req, res, next);
 
-        // Sending the new transaction as response
-        res.status(201).json(transaction);
-    } catch (e) {
-        // Passing error to error handler
-        return next(e);
-    }
+    // Sending the new transaction as response
+    res.status(201).json(transaction);
 }
 
 exports.editTransaction = async (req, res, next) => {
-    try {
-        // Updating transaction using userId and transactionId
-        const transaction = await Transaction.findOneAndUpdate({
-            _id: objectId(req.params.transactionId),
-            user: objectId(req.user._id)
-        }, {
-            ...req.body
-        }, {
-            new: true
-        });
+    // Update transaction
+    const transaction = await transactionServices.editTransaction(req, res, next);
 
-        // Sending the updated transaction as response
-        res.status(200).json(transaction);
-    } catch (e) {
-        return next(e);
-    }
+    // Sending the updated transaction as response
+    res.status(200).json(transaction);
 }
 
 exports.deleteTransaction = async (req, res, next) => {
-    try {
-        // Deleteing transaction using userId and transactionId
-        const transaction = await Transaction.findOneAndDelete({
-            _id: objectId(req.params.transactionId),
-            user: objectId(req.user._id)
-        });
+    // Delete transaction
+    const transaction = await transactionServices.deleteTransaction(req, res, next);
 
-        // Sending the deleted transaction as response
-        res.status(200).json(transaction);
-    } catch (e) {
-        return next(e);
-    }
+    // Sending the deleted transaction as response
+    res.status(200).json(transaction);
 }
 
 exports.getAllTransactions = async (req, res, next) => {
-    try {
-        // Finding all transactions of the current user with userId
-        const transactions = await Transaction.find({
-            user: objectId(req.user._id),
-        });
+    // Getting transactions
+    const transactions = await transactionServices.getAllTransactions(req, res, next);
 
-        // Sending transactions as response
-        res.status(200).json(transactions);
-    } catch (e) {
-        return next(e);
-    }
+    // Sending transactions as response
+    res.status(200).json(transactions);
 }

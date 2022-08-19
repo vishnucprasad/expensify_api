@@ -22,10 +22,6 @@ const transactionSchema = new Schema({
     },
     note: {
         type: String,
-        default: function () {
-            const _this = this.toObject(); // tslint:disable-line
-            return `${_this.category} - ${_this.transactionType}`;
-        }
     }
 });
 

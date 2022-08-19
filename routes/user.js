@@ -12,6 +12,5 @@ router.use(authenticateUser);
 
 // Private Routes
 router.get('/auth', userController.getAuth);
-router.post('/logout', userController.logout);
 
 module.exports = router;
