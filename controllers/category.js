@@ -34,3 +34,11 @@ exports.deleteCategory = async (req, res, next) => {
     // Sending transactions as response
     res.status(200).json(categories);
 }
+
+exports.getCategories = async (req, res, next) => {
+    // Get all categories with user id
+    const categories = await categoryServices.getCategories(req, res, next);
+
+    // Sending categories as response
+    res.status(200).json(categories);
+}
