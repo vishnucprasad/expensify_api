@@ -7,6 +7,8 @@ const authenticateUser = require("../middlewares/authenticateUser");
 router.use(authenticateUser);
 
 // Private Routes
-router.post('/add', categoryController.addCategory);
+router.post('/', categoryController.addCategory);
+router.patch('/:id', categoryController.editCategory);
+router.delete('/:id', categoryController.deleteCategory);
 
 module.exports = router;
