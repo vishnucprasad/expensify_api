@@ -19,9 +19,9 @@ exports.createTransaction = async (req, res, next) => {
 
 exports.editTransaction = async (req, res, next) => {
     try {
-        // Updating transaction using userId and transactionId
+        // Updating transaction using userId and transaction id
         const transaction = await Transaction.findOneAndUpdate({
-            _id: objectId(req.params.transactionId),
+            _id: objectId(req.params.id),
             user: objectId(req.user._id)
         }, {
             ...req.body
@@ -38,9 +38,9 @@ exports.editTransaction = async (req, res, next) => {
 
 exports.deleteTransaction = async (req, res, next) => {
     try {
-        // Deleteing transaction using userId and transactionId
+        // Deleteing transaction using userId and transaction id
         const transaction = await Transaction.findOneAndDelete({
-            _id: objectId(req.params.transactionId),
+            _id: objectId(req.params.id),
             user: objectId(req.user._id)
         });
 

@@ -7,9 +7,9 @@ const authenticateUser = require("../middlewares/authenticateUser");
 router.use(authenticateUser);
 
 // Private Routes
-router.post('/add', transactionController.addTransaction);
-router.patch('/edit/:transactionId', transactionController.editTransaction);
-router.delete('/delete/:transactionId', transactionController.deleteTransaction);
-router.get('/all', transactionController.getAllTransactions);
+router.post('/', transactionController.addTransaction);
+router.patch('/:id', transactionController.editTransaction);
+router.delete('/:id', transactionController.deleteTransaction);
+router.get('/', transactionController.getAllTransactions);
 
 module.exports = router;
