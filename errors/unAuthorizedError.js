@@ -7,7 +7,7 @@ class UnauthorizedError extends Error {
         };
         this.name = 'UnauthorizedError';
         this._message = _message;
-        this.message = `${_message}: ${message}`;
+        this.message = message;
         this.status = 401;
     }
 }

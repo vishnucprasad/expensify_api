@@ -35,7 +35,10 @@ exports.login = (req, res, next) => {
     });
 }
 
-exports.getAuth = (req, res) => res.status(200).json(req.user);
+exports.getAuth = (req, res) => res.status(200).json({
+    ...req.user,
+    authToken: req.headers.authorization?.split(" ")[1]
+});
 
 exports.logout = (req, res) => res
     .status(200)

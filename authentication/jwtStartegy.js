@@ -7,7 +7,7 @@ const userJwtStrategy = () => new JWTstrategy(
             let token = null;
 
             // Geting authentication Token from request headers
-            if (req && req.headers) token = req.headers.authorization.split(" ")[1];
+            if (req && req.headers) token = req.headers.authorization?.split(" ")[1];
             return token;
         },
     },

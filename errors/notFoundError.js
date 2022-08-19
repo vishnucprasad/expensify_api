@@ -7,7 +7,7 @@ class NotFoundError extends Error {
         };
         this.name = 'NotFoundError';
         this._message = _message;
-        this.message = `${_message}: ${message}`;
+        this.message = message;
         this.status = 404;
     }
 }
