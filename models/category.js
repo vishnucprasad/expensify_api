@@ -13,7 +13,9 @@ const categorySchema = new Schema({
             {
                 _id: {
                     type: mongoose.Types.ObjectId,
-                    default: new mongoose.Types.ObjectId(),
+                    index: true,
+                    required: true,
+                    auto: true,
                 },
                 title: {
                     type: String,
