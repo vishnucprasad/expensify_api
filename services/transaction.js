@@ -1,66 +1,49 @@
 const objectId = require("mongoose").Types.ObjectId;
 const Transaction = require('../models/transaction');
 
-exports.createTransaction = async (req, res, next) => {
-    try {
-        // Creating new transaction
-        const transaction = await Transaction.create({
-            user: req.user._id,
-            ...req.body
-        });
+exports.createTransaction = async (userId, transactionDetails) => {
+    // Creating new transaction
+    const transaction = await Transaction.create({
+        user: userId,
+        ...transactionDetails
+    });
 
-        // Return new transaction
-        return transaction;
-    } catch (e) {
-        // Passing error to error handler
-        return next(e);
-    }
+    // Return new transaction
+    return transaction;
 }
 
-exports.editTransaction = async (req, res, next) => {
-    try {
-        // Updating transaction using userId and transaction id
-        const transaction = await Transaction.findOneAndUpdate({
-            _id: objectId(req.params.id),
-            user: objectId(req.user._id)
-        }, {
-            ...req.body
-        }, {
-            new: true
-        });
+exports.editTransaction = async (userId, transactionId, patch) => {
+    // Updating transaction using userId and transaction id
+    const transaction = await Transaction.findOneAndUpdate({
+        _id: objectId(transactionId),
+        user: objectId(userId)
+    }, {
+        ...patch
+    }, {
+        new: true
+    });
 
-        // Return edited transaction
-        return transaction;
-    } catch (e) {
-        return next(e);
-    }
+    // Return edited transaction
+    return transaction;
 }
 
-exports.deleteTransaction = async (req, res, next) => {
-    try {
-        // Deleteing transaction using userId and transaction id
-        const transaction = await Transaction.findOneAndDelete({
-            _id: objectId(req.params.id),
-            user: objectId(req.user._id)
-        });
+exports.deleteTransaction = async (userId, transactionId) => {
+    // Deleteing transaction using userId and transaction id
+    const transaction = await Transaction.findOneAndDelete({
+        _id: objectId(transactionId),
+        user: objectId(userId)
+    });
 
-        // Return deleted transaction
-        return transaction;
-    } catch (e) {
-        return next(e);
-    }
+    // Return deleted transaction
+    return transaction;
 }
 
-exports.getAllTransactions = async (req, res, next) => {
-    try {
-        // Finding all transactions of the current user with userId
-        const transactions = await Transaction.find({
-            user: objectId(req.user._id),
-        });
+exports.getAllTransactions = async (userId) => {
+    // Finding all transactions of the current user with userId
+    const transactions = await Transaction.find({
+        user: objectId(userId),
+    });
 
-        // Return all transactions
-        return transactions;
-    } catch (e) {
-        return next(e);
-    }
+    // Return all transactions
+    return transactions;
 }
