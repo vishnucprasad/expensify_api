@@ -40,9 +40,30 @@ exports.deleteTransaction = async (userId, transactionId) => {
 
 exports.getAllTransactions = async (userId) => {
     // Finding all transactions of the current user with userId
-    const transactions = await Transaction.find({
-        user: objectId(userId),
-    });
+    const transactions = await Transaction.aggregate()
+        .match({ user: objectId(userId) })
+        .lookup({
+            from: 'categories',
+            foreignField: 'user',
+            localField: 'user',
+            as: 'categoryDetails'
+        })
+        .unwind({ path: '$categoryDetails' })
+        .unwind({ path: '$categoryDetails.categoryList' })
+        .match({
+            $expr: {
+                $eq: [
+                    "$categoryDetails.categoryList._id",
+                    "$category"
+                ]
+            }
+        })
+        .project({
+            _id: 1,
+            amount: 1,
+            date: 1,
+            category: '$categoryDetails.categoryList'
+        });
 
     // Return all transactions
     return transactions;
