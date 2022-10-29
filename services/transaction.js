@@ -62,7 +62,10 @@ exports.getAllTransactions = async (userId) => {
             _id: 1,
             amount: 1,
             date: 1,
+            note: 1,
             category: '$categoryDetails.categoryList'
+        }).sort({
+            date: -1
         });
 
     // Return all transactions
