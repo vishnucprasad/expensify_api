@@ -8,5 +8,6 @@ router.use(authenticateUser);
 
 // Private Routes
 router.post('/', subscriptionsController.addSubscription);
+router.patch('/:id', subscriptionsController.editSubscription);
 
 module.exports = router;
