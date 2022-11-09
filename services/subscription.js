@@ -26,6 +26,17 @@ exports.editSubscription = async (userId, subscriptionId, patch) => {
     return subscription;
 }
 
+exports.deleteSubscription = async (userId, subscriptionId) => {
+    // Deleteing subscription using userId and subscription id
+    const subscription = await Subscription.findOneAndDelete({
+        _id: objectId(subscriptionId),
+        user: objectId(userId)
+    });
+
+    // Return deleted subscription
+    return subscription;
+}
+
 exports.getAllSubscriptions = async (userId) => {
     // Finding all subscriptions of the current user with userId
     const subscriptions = await Subscription
