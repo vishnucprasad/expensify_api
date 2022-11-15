@@ -13,8 +13,16 @@ const subscriptionSchema = new Schema({
         min: [1, '{PATH} must be greater than 0']
     },
     title: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: [true, 'you must provide {PATH}'],
+    },
+    type: {
+        type: 'String',
+        required: [true, 'you must provide {PATH}'],
+        enum: {
+            values: ['Monthly', 'Quarterly', 'Annual'],
+            message: '{VALUE} is not supported!',
+        }
     },
     date: {
         type: Number,
