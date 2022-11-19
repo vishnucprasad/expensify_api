@@ -1,4 +1,5 @@
 const Bill = require("../models/bill");
+const objectId = require('mongoose').Types.ObjectId;
 
 exports.createNewBill = async (userId, billDetails) => {
     // Creating new bill
@@ -8,6 +9,21 @@ exports.createNewBill = async (userId, billDetails) => {
     });
 
     // Return new bill
+    return bill;
+}
+
+exports.editBill = async (userId, billId, patch) => {
+    // Updating bill using userId and bill id
+    const bill = await Bill.findOneAndUpdate({
+        _id: objectId(billId),
+        user: objectId(userId)
+    }, {
+        ...patch
+    }, {
+        new: true
+    });
+
+    // Return edited bill
     return bill;
 }
 

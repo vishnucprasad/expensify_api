@@ -6,5 +6,6 @@ const billController = require('../controllers/bill');
 router.use(authenticateUser);
 
 router.post('/', billController.addBill);
+router.patch('/:id', billController.editBill);
 
 module.exports = router;
