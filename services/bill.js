@@ -27,6 +27,17 @@ exports.editBill = async (userId, billId, patch) => {
     return bill;
 }
 
+exports.deleteBill = async (userId, billId) => {
+    // Deleteing bill using userId and bill id
+    const bill = await Bill.findOneAndDelete({
+        _id: objectId(billId),
+        user: objectId(userId)
+    });
+
+    // Return deleted bill
+    return bill;
+}
+
 exports.getAllBills = async (userId) => {
     // Finding all bills of the current user with userId
     const bills = await Bill

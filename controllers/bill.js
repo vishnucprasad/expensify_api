@@ -31,3 +31,19 @@ exports.editBill = async (req, res, next) => {
         return next(e);
     }
 }
+
+exports.deleteBill = async (req, res, next) => {
+    try {
+        // Delete bill
+        await billServices.deleteBill(req.user._id, req.params.id);
+
+        // Getting all bills with userId
+        const bills = await billServices.getAllbills(req.user._id);
+
+        // Sending all bills of the user as response
+        res.status(200).json(bills);
+    } catch (e) {
+        // Passing error to error handler
+        return next(e);
+    }
+}
