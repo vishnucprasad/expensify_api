@@ -28,6 +28,12 @@ const subscriptionSchema = new Schema({
         type: Number,
         required: [true, 'you must provide {PATH}'],
     },
+    renewedOn: {
+        type: Number,
+        default: function () {
+            return this.date;
+        }
+    },
     note: {
         type: String,
     }
