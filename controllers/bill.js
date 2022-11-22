@@ -38,12 +38,13 @@ exports.deleteBill = async (req, res, next) => {
         await billServices.deleteBill(req.user._id, req.params.id);
 
         // Getting all bills with userId
-        const bills = await billServices.getAllbills(req.user._id);
+        const bills = await billServices.getAllBills(req.user._id);
 
         // Sending all bills of the user as response
         res.status(200).json(bills);
     } catch (e) {
         // Passing error to error handler
+        console.log(e);
         return next(e);
     }
 }

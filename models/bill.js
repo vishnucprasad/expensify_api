@@ -25,6 +25,9 @@ const billSchema = new Schema({
     },
     payedOn: {
         type: Number,
+    },
+    note: {
+        type: String,
     }
 });
 
