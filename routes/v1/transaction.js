@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const transactionController = require("../controllers/transaction");
-const authenticateUser = require("../middlewares/authenticateUser");
+const transactionController = require("../../controllers/transaction");
+const authenticateUser = require("../../middlewares/authenticateUser");
 
 // Authentication Middleware
 router.use(authenticateUser);
