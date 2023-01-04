@@ -8,6 +8,7 @@ const router = require("./routes/router");
 const NotFoundError = require("./errors/notFoundError");
 const userLocalStrategy = require("./authentication/localStrategy");
 const userJwtStrategy = require("./authentication/jwtStartegy");
+const logger = require("./config/logger");
 
 const app = express();
 const port = process.env.PORT;
@@ -41,8 +42,8 @@ app.use((error, req, res, next) => {
 // Serving
 app
     .listen(port, () => {
-        console.log(`\x1b[32mserver is running on http://localhost:${port}\x1b[0m`);
+        logger.info(`\x1b[32mserver is running on http://localhost:${port}\x1b[0m`);
     })
     .on("error", (error) => {
-        console.log("\x1b[31mport " + error.port + " is already in use\x1b[0m");
+        logger.error("\x1b[31mport " + error.port + " is already in use\x1b[0m");
     });
